@@ -24,16 +24,7 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
-        // stage('Sonar Analysis') {
-        //     steps {
-        //         withSonarQubeEnv('SonarQube') {
-        //             sh '''
-        //                 mvn clean verify sonar:sonar \
-        //                 -Dsonar.projectKey=demo-project
-        //             '''
-        //         }
-        //     }
-        // }
+
    stage('Deployment') {
     steps {
         deploy adapters: [
