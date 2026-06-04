@@ -52,7 +52,7 @@ public class AtsMahindraBatteryApplication {
 			public void addCorsMappings(CorsRegistry registry) {
 
 				
-			//	registry.addMapping("/**").allowedOrigins("http://192.168.1.100:8080");
+			//registry.addMapping("/**").allowedOrigins("http://192.168.1.100:8080");
 
 				registry.addMapping("/**").allowedOrigins("http://localhost:4201","http://192.168.11.76:8088");
 			}
