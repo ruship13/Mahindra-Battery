@@ -123,7 +123,7 @@ public ResponseEntity<MasterUserDetailsEntity> createAuthenticationToken(
 		myOtp=otpEntity.getOtp();
 			return new ResponseEntity<>(HttpStatus.OK);
 		} else {
-			session.setAttribute("message", "check your email id");
+			session.setAttribute("message", "check your email id here");
 		
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
