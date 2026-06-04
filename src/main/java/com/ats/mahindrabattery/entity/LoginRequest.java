@@ -1,3 +1,4 @@
+package com.ats.mahindrabattery.entity;
 public class LoginRequest {
 
     private String userName;
