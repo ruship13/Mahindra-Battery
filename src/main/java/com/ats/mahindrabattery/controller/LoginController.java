@@ -64,49 +64,43 @@ public class LoginController {
 	private MasterUserDetailsRepository userDetailsRepository;
 
 	@PostMapping("/authenticate")
-	public ResponseEntity<MasterUserDetailsEntity> createAuthenticationToken(
-			@RequestParam(value = "userName") String userName,
-			@RequestParam(value = "userPassword") String userPassword) throws Exception {
-		System.out.println("request username: " + userName);
-		List<MasterUserDetailsEntity> userList = userManager.findByuserNameAndUserIsDeleted(userName,0);
-		System.out.println("userlist: " + userList.size());
-		// System.out.println(passwordEncoder.encode(
-		// userList.get(0).getUserPassword()));
-		if (userList != null && userList.size() > 0) {
+public ResponseEntity<MasterUserDetailsEntity> createAuthenticationToken(
+        @RequestBody LoginRequest request) throws Exception {
 
-			//if (passwordEncoder.matches(userPassword, userList.get(0).getUserPassword())) {
-				// if (true) {
-				System.out.println("inside if :" + userName);
-				final UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
-				System.out.println(userDetails.getUsername());
-				final String jwt = jwtTokenUtil.generateToken(userDetails);
+    String userName = request.getUserName();
+    String userPassword = request.getUserPassword();
 
-				MasterUserDetailsEntity user = new MasterUserDetailsEntity();
+    System.out.println("request username: " + userName);
 
-				user = userList.get(0);
-				user.setJwtToken(jwt);
+    List<MasterUserDetailsEntity> userList =
+            userManager.findByuserNameAndUserIsDeleted(userName, 0);
 
-				user.setUserPhotoImageIn64Base(
-						"data:image/jpeg;base64," + Base64.getEncoder().encodeToString(userList.get(0).getUserImage()));
-				System.out.println(user.getFirstName());
+    System.out.println("userlist: " + userList.size());
 
-				return new ResponseEntity<MasterUserDetailsEntity>(user, HttpStatus.OK);
-				// return ResponseHandler.generateResponse("Login sucessfully", HttpStatus.OK,
-				// null);
+    if (userList != null && userList.size() > 0) {
 
-//			} else {
-//				// throw new Exception("Incorrect username or password");
-//				// return ResponseHandler.generateResponse("Incorrect username or password",
-//				// HttpStatus.BAD_REQUEST, null);
-//				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//			}
-		} else {
-			return new ResponseEntity<MasterUserDetailsEntity>(HttpStatus.NO_CONTENT);
-			// return ResponseHandler.generateResponse("Login sucessfully",
-			// HttpStatus.NO_CONTENT, null);
-		}
+        System.out.println("inside if :" + userName);
 
-	}
+        final UserDetails userDetails =
+                userDetailsService.loadUserByUsername(userName);
+
+        final String jwt = jwtTokenUtil.generateToken(userDetails);
+
+        MasterUserDetailsEntity user = userList.get(0);
+
+        user.setJwtToken(jwt);
+
+        user.setUserPhotoImageIn64Base(
+                "data:image/jpeg;base64,"
+                        + Base64.getEncoder()
+                                .encodeToString(user.getUserImage()));
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
+
+    } else {
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+}
 
 	@PostMapping("/sendOtp/{emailId}")
 	public ResponseEntity<?> sendOtp(@PathVariable String emailId, HttpSession session) {
