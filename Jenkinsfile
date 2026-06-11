@@ -24,6 +24,17 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
+        stage('Sonar Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh '''
+                        mvn clean verify sonar:sonar \
+                        -Dsonar.projectKey=sonar
+                    '''
+                }
+            }
+        }
+
 
    stage('Deployment') {
     steps {
