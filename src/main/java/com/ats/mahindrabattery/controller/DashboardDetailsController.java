@@ -32,7 +32,7 @@ import com.ats.mahindrabattery.serviceimpl.DashboardDetailsServiceImpl;
 @RequestMapping("/dashboardDetails")
 public class DashboardDetailsController {
 
-	private static final String String = null;
+	//private static final String String = null;
 	@Autowired
 	private DashboardDetailsServiceImpl DashboardDetailsServiceInstance;
 
@@ -42,27 +42,6 @@ public class DashboardDetailsController {
 		return getByDate;
 	}
 
-//	@GetMapping("/findCurrentStockCountByCurrentDate")
-//	public int findCurrectStockCountByCDatetime() {
-//		int findCurrentStockCountByCurrentDate=DashboardDetailsServiceInstance.findCurrentStockCountByCurrentDatetime();
-//		return findCurrentStockCountByCurrentDate;
-//	}
-
-//	 @Autowired
-//		private DashboardDetailsRepository dashboardDetailsRepositoryInstance;
-//	   
-//	    
-
-//	@Scheduled(fixedRate = 60000)
-	@GetMapping("/fetchAllDashboardDetails")
-	public Optional<DashboardDetailsEntity> fetchAlDashboardDetails() {
-		return DashboardDetailsServiceInstance.findAllDashboarsDetails();
-	}
-
-	@GetMapping("/addDashboardDetails")
-	public ResponseEntity<String> addDashboardDetails() {
-		return DashboardDetailsServiceInstance.addDashboardDetails();
-	}
 
 	@GetMapping("/fetchDateTime")
 	public List<String> fetchDateTime() throws ParseException {
@@ -74,11 +53,7 @@ public class DashboardDetailsController {
 		return DashboardDetailsServiceInstance.fetchProductionTrendDetails();
 	}
 
-//	@GetMapping("/getbydate")
-//	public List<InfeedMissionRuntimeDetailsEntity> getByDate(){
-//		List<InfeedMissionRuntimeDetailsEntity> getByDate = infeedMissionRuntimeDetailsService.getByDate();
-//		return getByDate;
-//	}
+
 	@GetMapping("/getBevOutfeedDetailsByDate") // this method is for current details finding
 	public List<OutfeedMissionRuntimeDetailsEntity> getBevOutfeedDetailsByDate() {
 		List<OutfeedMissionRuntimeDetailsEntity> getBevOutfeedDetailsByDate = DashboardDetailsServiceInstance
@@ -128,6 +103,7 @@ public class DashboardDetailsController {
 	@GetMapping("/findBEVInfeedDetailsByCurrentDate") // this method is for count finding
 	public int findBEVInfeedDetailsByCurrentDate() {
 		int findBEVInfeedDetailsByCurrentDate = DashboardDetailsServiceInstance.findBEVInfeedDetailsByCurrentDate();
+		
 		return findBEVInfeedDetailsByCurrentDate;
 	}
 
@@ -137,13 +113,7 @@ public class DashboardDetailsController {
 				.getOkMaterialCurrentStockDetailsByDate();
 		return getOkCurrentStockDetailsByDate;
 	}
-//	@GetMapping("/getOkCurrentStockDetails")
-//	public Page<CurrentPalletStockDetailsEntity> getOkCurrentStockDetailsByDate(
-//	        @RequestParam(defaultValue = "0") int page,
-//	        @RequestParam(defaultValue = "10") int size) {
-//	    Pageable pageable = PageRequest.of(page, size);
-//	    return DashboardDetailsServiceInstance.getOkMaterialCurrentStockDetailsPage(pageable);
-//	}
+
 
 	@GetMapping("/getNOkCurrentStockDetails") // this method is for details finding
 	public List<CurrentPalletStockDetailsEntity> getNOkCurrentStockDetailsByDate() {
@@ -171,10 +141,7 @@ public class DashboardDetailsController {
 		return findEquipmentAlarmHistoryByCurrentDate;
 	}
 
-//	@GetMapping("/findAllPickListDetails")
-//	public void findAllPickListDetails() {
-//		DashboardDetailsServiceInstance.findAllPickListDetails();
-//	}
+
 
 	@GetMapping("/getInfeedDetailsByDate")
 	public int getInfeedDetailsByDate() {
@@ -188,11 +155,7 @@ public class DashboardDetailsController {
 		return outfeedDetailsByDate;
 	}
 
-//	@GetMapping("/findTotalCurrentStockDetails")  //total  currentstock count by pallet not NA
-//	public int findTotalCurrentStockDetails() {
-//		int findTotalCurrentStockDetails = DashboardDetailsServiceInstance.findTotalCurrentStockDetails();
-//		return findTotalCurrentStockDetails;
-//	}
+
 
 	@GetMapping("/getNOkBEVMaterialCurrentStockDetails") // total currentstock NOK BEV count
 	public int getNOkBEVMaterialCurrentStockDetails() {
@@ -237,5 +200,71 @@ public class DashboardDetailsController {
 				"data getting..." + DashboardDetailsServiceInstance.findByQualityStatus(qualityStatus, pageable));
 		return DashboardDetailsServiceInstance.findByQualityStatus(qualityStatus, pageable);
 	}
+
+	@GetMapping("/totalOrdersCount")
+	public int fetchTotalOrderDetailsByCurrentDate() {
+		return DashboardDetailsServiceInstance.findTotalOrderDetailsByCurrentDate();
+	}
+
+	@GetMapping("/executedOrder")
+	public int findExecutedOrder() {
+		return DashboardDetailsServiceInstance.findExecutedOrder();
+	}
+
+	@GetMapping("/openOrders")
+	public int fetchdispatchStatus() {
+		return DashboardDetailsServiceInstance.openOrders();
+
+	}
+
+	@GetMapping("/percentageOrders")
+	public String percentageOrders() {
+		return DashboardDetailsServiceInstance.percentageOrders();
+	}
+
+	@GetMapping("/BEVBufferDetails")
+	public int findTotalBEVBufferCount() {
+		return DashboardDetailsServiceInstance.findTotalBEVBufferCount();
+	}
+
+	@GetMapping("/S230BufferDetails")
+	public int findTotalS230BufferCount() {
+		return DashboardDetailsServiceInstance.findTotalS230BufferCount();
+	}
+
+	
+	@GetMapping("/findAllDashboard")
+	public DashboardDetailsEntity findAllDashboard() {
+		return DashboardDetailsServiceInstance.findAllDashboard();
+	}
+
+	@GetMapping("/TotalInfeedCountList")
+	public List<InfeedMissionRuntimeDetailsEntity> findByTotalInfeedCount() {
+		return DashboardDetailsServiceInstance.findByTotalInfeedCount();
+
+	}
+
+	@GetMapping("/TotalOutfeedCountList")
+	public List<OutfeedMissionRuntimeDetailsEntity> findByTotalOutfeedCount() {
+		return DashboardDetailsServiceInstance.findByTotalOutfeedCount();
+
+	}
+
+	@GetMapping("/findtotalInfeedCount")
+	public int findtotalInfeedCount() {
+		return DashboardDetailsServiceInstance.findtotalInfeedCount();
+	}
+
+	@GetMapping("/findtotalOutfeedCount")
+	public int findtotalOutfeedCount() {
+		return DashboardDetailsServiceInstance.findtotalOutfeedCount();
+	}
+
+	
+	@GetMapping("/findAllDashboardByPreviousDate")
+	public DashboardDetailsEntity findAllDashboardByPreviousDate() {
+		return DashboardDetailsServiceInstance.findAllDashboardByPreviousDate();
+	}
+	
 
 }
